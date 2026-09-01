@@ -1,0 +1,592 @@
+<section class="landing-block g-pt-0 g-pb-0 g-pl-0 g-pr-0">
+
+<!-- 
+  INTRANET SAFE STYLES 
+  No external links required. All styling is self-contained here.
+-->
+<style>
+    /* Reset & Base Fonts */
+    .ta-tool-wrapper {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: #333;
+        line-height: 1.5;
+        box-sizing: border-box;
+        background-color: #f9fafb; /* gray-50 */
+        padding: 20px;
+        border-radius: 12px;
+    }
+    .ta-tool-wrapper * {
+        box-sizing: border-box;
+    }
+
+    /* Layout Containers */
+    .ta-card {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+
+    /* Header */
+    .ta-header {
+        background-color: #b91c1c; /* red-700 */
+        color: white;
+        padding: 24px;
+    }
+    .ta-header h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+    }
+    .ta-header p {
+        margin: 8px 0 0 0;
+        color: #fee2e2; /* red-100 */
+        font-size: 14px;
+    }
+
+    /* Input Section */
+    .ta-input-section {
+        padding: 24px;
+        border-bottom: 1px solid #e5e7eb;
+        background-color: #f9fafb;
+    }
+    .ta-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 8px;
+    }
+    .ta-controls {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .ta-input {
+        flex-grow: 1;
+        padding: 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 16px;
+        font-family: monospace;
+        min-width: 200px;
+    }
+    .ta-btn {
+        background-color: #dc2626; /* red-600 */
+        color: white;
+        font-weight: 600;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    .ta-btn:hover {
+        background-color: #b91c1c;
+    }
+    .ta-helper-text {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 8px;
+    }
+    .ta-error {
+        color: #ef4444;
+        font-size: 12px;
+        margin-top: 4px;
+        display: none;
+    }
+
+    /* Output Section */
+    .ta-output {
+        padding: 24px;
+        display: none;
+    }
+    .ta-output.visible {
+        display: block;
+        animation: fadeInTA 0.5s ease-in-out;
+    }
+
+    /* Status Badge Area */
+    .status-bar-ta {
+        background-color: #fef2f2;
+        border: 1px solid #fee2e2;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .status-title-ta h2 {
+        margin: 0;
+        color: #7f1d1d;
+        font-size: 20px;
+    }
+    .status-title-ta p {
+        margin: 4px 0 0 0;
+        color: #b91c1c;
+        font-weight: 500;
+    }
+    .days-badge-ta {
+        background-color: white;
+        color: #991b1b;
+        padding: 6px 16px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: bold;
+        border: 1px solid #fecaca;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    /* Grid Layout for Columns */
+    .info-grid-ta {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+    @media (max-width: 768px) {
+        .info-grid-ta {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Colored Info Boxes */
+    .info-box-ta {
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 24px;
+        border-left-width: 4px;
+        border-left-style: solid;
+    }
+    .info-box-ta h3 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .info-box-ta ul {
+        margin: 0;
+        padding-left: 20px;
+        font-size: 14px;
+    }
+    .info-box-ta li {
+        margin-bottom: 4px;
+    }
+
+    .box-green-ta { background-color: #f0fdf4; border-left-color: #22c55e; }
+    .box-green-ta h3 { color: #14532d; }
+    
+    .box-red-ta { background-color: #fef2f2; border-left-color: #ef4444; }
+    .box-red-ta h3 { color: #7f1d1d; }
+
+    .box-purple-ta { background-color: #faf5ff; border-left-color: #a855f7; }
+    .box-purple-ta h3 { color: #581c87; }
+
+    .box-indigo-ta { background-color: #eef2ff; border-left-color: #6366f1; }
+    .box-indigo-ta h3 { color: #312e81; }
+
+    /* Text Area */
+    .copy-header-ta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    .copy-label-ta {
+        font-size: 14px;
+        font-weight: bold;
+        color: #374151;
+    }
+    .btn-copy-small-ta {
+        font-size: 12px;
+        background-color: #e5e7eb;
+        border: none;
+        padding: 4px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .btn-copy-small-ta:hover { background-color: #d1d5db; }
+    
+    textarea.generated-text-ta {
+        width: 100%;
+        height: 220px;
+        padding: 12px;
+        font-family: monospace;
+        font-size: 13px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background-color: #f9fafb;
+        resize: vertical;
+    }
+
+    .empty-state-ta {
+        padding: 48px;
+        text-align: center;
+        color: #9ca3af;
+    }
+
+    @keyframes fadeInTA {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<!-- Main Tool Container -->
+<div class="ta-tool-wrapper">
+
+    <div class="ta-card">
+        
+        <!-- Header -->
+        <div class="ta-header">
+            <h1>PWH Physio Achilles Tendon (TA) Repair Rehab Protocol</h1>
+            <p>Enter the operation date to generate specific goals, interventions, and precautions based on the post-op timeline.</p>
+        </div>
+
+        <!-- Input Section -->
+        <div class="ta-input-section">
+            <label class="ta-label">Operation Date (dd/mm/yyyy)</label>
+            
+            <div class="ta-controls">
+                <input 
+                    type="text" 
+                    id="taOpDate" 
+                    placeholder="dd/mm/yyyy" 
+                    maxlength="10"
+                    class="ta-input" 
+                >
+                <button id="taBtnGenerate" class="ta-btn">Enter</button>
+            </div>
+
+            <p class="ta-helper-text">Format: Day/Month/Year (e.g., 25/01/2024)</p>
+            <p id="taDateError" class="ta-error">Invalid date format.</p>
+        </div>
+
+        <!-- Output Section -->
+        <div id="taOutputContainer" class="ta-output">
+            
+            <!-- Status Badge -->
+            <div class="status-bar-ta">
+                <div class="status-title-ta">
+                    <h2 id="taWeekHeader">Post-Operation - Week</h2>
+                    <p id="taDayRange">Day range</p>
+                    <p id="taPhaseLabel" style="margin-top:4px; font-size:13px; color:#7f1d1d; font-weight:700;"></p>
+                </div>
+                <div class="days-badge-ta">
+                    <span id="taDaysPastBadge">0 Days Post-Op</span>
+                </div>
+            </div>
+
+            <div class="info-grid-ta">
+                
+                <!-- Left Column -->
+                <div>
+                    <div class="info-box-ta box-green-ta">
+                        <h3>Goals</h3>
+                        <ul id="taGoalList"></ul>
+                    </div>
+
+                    <div class="info-box-ta box-red-ta">
+                        <h3>Precautions & ROM Limits</h3>
+                        <ul id="taPrecautionList"></ul>
+                    </div>
+
+                    <div class="info-box-ta box-purple-ta">
+                        <h3>Outcome Measures / Assessment</h3>
+                        <p style="font-size:12px; color:#666; margin-bottom:5px;">Tests/Checks required this timeframe:</p>
+                        <ul id="taOutcomeList"></ul>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div>
+                    <div class="info-box-ta box-indigo-ta">
+                        <h3>Interventions</h3>
+                        <ul id="taInterventionList"></ul>
+                    </div>
+
+                    <!-- Copyable Text Area -->
+                    <div>
+                        <div class="copy-header-ta">
+                            <span class="copy-label-ta">Generated Treatment Record Text</span>
+                            <button id="taBtnCopy" class="btn-copy-small-ta">Copy to Clipboard</button>
+                        </div>
+                        <textarea id="taGeneratedText" class="generated-text-ta" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="taEmptyState" class="empty-state-ta">
+            <p>Please enter an operation date (dd/mm/yyyy) and click Enter to begin.</p>
+        </div>
+
+    </div>
+</div>
+
+<script data-skip-moving="true">
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // NOTE ON ENCODING:
+        // Special characters (degree sign, em dash, arrows) are written below
+        // using JavaScript unicode escapes (\u00B0, \u2014, \u2192, \u2013) rather
+        // than raw characters. This guarantees correct rendering even if the
+        // host page's charset is not UTF-8, preventing "mojibake" (e.g. Â°, â€”).
+
+        const DEG = '\u00B0';    // °
+        const DASH = '\u2014';   // — (em dash)
+        const ARROW = '\u2192';  // →
+        const ENDASH = '\u2013'; // – (en dash)
+
+        // --- DATA ---
+        const taProtocolData = {
+            0: { // Phase I - Protection Phase: 0-1 week
+                phase: `PHASE I ${DASH} PROTECTION PHASE`,
+                goals: ["Reduce edema", "Ensure closure of incision", "Education on DVT prevention", "Manage pain"],
+                interventions: ["Intrinsic foot exercises: toe spreading, toe taps", "Submaximal isometric plantarflexion as tolerated", "Core, hip and knee maintenance exercises", "Cryotherapy and electrotherapy for swelling control"],
+                precautions: ["Non-weight-bearing (NWB)", `Cast positioned in 20${DEG} plantarflexion (PF)`, `No ankle ROM exercise - ankle maintained at 20${DEG} PF in cast`, "Monitor for DVT, infection, and other post-op complications"],
+                outcomes: ["Check: Edema/swelling level", "Check: Incision closure status", "Check: Signs of DVT", "Criteria to progress: Minimal edema & cast removed"]
+            },
+            2: { // Phase II - Early Loading: 2-3 weeks
+                phase: `PHASE II ${DASH} EARLY LOADING PHASE`,
+                goals: ["Improve calf activation", "Avoid Achilles tendon elongation", "Maintain lower-limb fitness", "Maintain core fitness", "Maintain cardiovascular fitness"],
+                interventions: ["Pain-free AROM inversion and eversion", `DF/PF AROM from full PF to -10${DEG} DF`, "Continue intrinsic foot, proximal LL and core maintenance exercises", "Joint mobilization: subtalar, distal tibiofibular, rearfoot, midfoot, forefoot, hallux joints", "Submaximal isometric end-range PF with heel raised"],
+                precautions: ["Weight-bearing as tolerated (WBAT)", `Walker boot with 2 heel wedges, ankle positioned at 20${DEG} PF`, `AROM limited: full PF to -10${DEG} DF`, "Avoid passive calf stretching (restricted until 12 weeks post-op)", "Monitor resting DF tension in prone with knee flexed"],
+                outcomes: ["Check: Edema (should be minimal)", "Check: Cast removed", "Check: Tolerance to WBAT and permitted ankle AROM"]
+            },
+            4: { // Phase II - Early Loading: 4-5 weeks
+                phase: `PHASE II ${DASH} EARLY LOADING PHASE`,
+                goals: ["Improve calf activation", "Avoid Achilles tendon elongation", "Maintain lower-limb fitness", "Maintain core fitness", "Maintain cardiovascular fitness"],
+                interventions: ["Pain-free AROM inversion and eversion", "DF/PF AROM from full PF to neutral", "Joint mobilization: subtalar, distal tibiofibular, rearfoot, midfoot, forefoot, hallux joints", "Submaximal isometric end-range PF with heel raised", "Lower-limb maintenance exercises", "Core maintenance exercises", "Cardiovascular fitness maintenance"],
+                precautions: ["WBAT", `Walker boot with 1 heel wedge, ankle positioned at 10${DEG} PF`, "AROM limited: full PF to neutral", "Avoid progressing resistance and muscle/tendon length at the same time", "Avoid passive calf stretching until 12 weeks post-op"],
+                outcomes: ["Check: Able to attain ankle in neutral position", `Target at Week 6: DF AROM to 0${DEG} with knee extended`]
+            },
+            6: { // Phase III - Strength Phase: 6-12 weeks
+                phase: `PHASE III ${DASH} STRENGTH PHASE`,
+                goals: ["Achieve pain-free ambulation without an antalgic gait", "Progressively strengthen the ankle plantarflexors", "Gradually restore closed-chain ankle DF ROM"],
+                interventions: [`Proprioceptive exercises: progress DL ${ARROW} SL`, "Isometric end-range PF with heel raised + electrical stimulation (ES)", `Resistive exercises: seated isotonic PF/ PF with resistance band ${ARROW} toe raise with leg press`, `Whole-body vibration in standing: progress DL ${ARROW} SL, 16-21Hz`, "Heel taps within available DF", "(Optional) BFR training: 50-80% LOP, 4 sets (30,15,15,15 reps), load 20-30% 1RM"],
+                precautions: ["Full weight-bearing (FWB)", "No specific boot required; additional shoe wedge may be used during transition (contact 1st surgeon for referral)", "Avoid passive calf stretching until 12 weeks post-op", "Monitor loading; restore closed-chain DF gradually", "Heel taps must remain within available DF range"],
+                outcomes: ["Check: Pain-free ambulation / antalgic gait", "Check: Tolerance to progressive PF strengthening", "Check: Gradual restoration of closed-chain DF ROM", "Criteria to progress: readiness for weight-bearing strengthening after 12 weeks"]
+            },
+            12: { // Phase III - 12 weeks onward + Staged heel-raise program (Stage 1-2)
+                phase: `PHASE III ${DASH} STRENGTH PHASE (12 weeks onward)`,
+                goals: ["Initiate weight-bearing strengthening exercises", "Normalize gait mechanics", "Restore plantarflexor strength", "Progress toward unilateral calf function"],
+                interventions: [
+                    `Gentle towel stretch ${ARROW} progress to gastrocnemius-soleus complex stretching in standing`,
+                    `Staged heel-raise loading program - Stage 1: 3 sets/day, DL up/down 20-30 reps (~2 wks) ${ARROW} Stage 2: 2 sets/day, DL up/down 10 reps + DL-up-SL-down 10 reps + DL up/down 10 reps (~2 wks)`,
+                    "Squat progression: semi/half squat, progress to squats through available ROM",
+                    "Step-ups through available ROM",
+                    "Lunges through available ROM",
+                    "Toe walking",
+                    `Whole-body vibration: heel rise ${ARROW} heel drop, stepping in place, 16-21Hz`,
+                    "(Optional) BFR training with heel raises: 50-80% LOP, 4 sets (30,15,15,15 reps)",
+                ],
+                precautions: ["Passive calf stretching restricted for first 12 weeks - progress gently now", "Progress calf loading according to strength, ROM and movement quality"],
+                outcomes: ["Check: Gait mechanics (heel-toe gait, heel strike, push-off)", "Test: PF strength (target 4/5)", "Test: SL heel raise (target within 80% of uninvolved leg)", "Check: DL calf raise through full ROM"]
+            },
+            15: { // Phase IV - Return to Function: 15-18 weeks
+                phase: `PHASE IV ${DASH} RETURN-TO-FUNCTION PHASE`,
+                goals: ["Improve SL plantarflexor strength and endurance through full ROM", "Initiate plyometric progression"],
+                interventions: [
+                    "Continue staged heel-raise loading program (Stage 3: 2 sets/day, DL-up-SL-down x2 sets; Stage 4: adds SL up/down 10 reps)",
+                    `Ascend 8-inch step ${ARROW} progress to StairMaster`,
+                    "SL training: Bulgarian split squat, SL Romanian deadlift",
+                    "Pre-running drills: agility ladder, triple-extension wall drill",
+                    `Begin jumping progression: leg press ${ARROW} mini-trampoline ${ARROW} ground ${ARROW} box jumps`,
+                    `Begin light plyometrics: DL straight ${ARROW} diagonal ${ARROW} rotational plane ${ARROW} tuck jumps ${ARROW} progress to SL`
+                ],
+                precautions: ["Consider performance of contralateral limb as benchmark", "Progress jumping and plyometric loading according to technique and tolerance"],
+                outcomes: ["Check: Ankle ROM equal to opposite side", "Check: Able to perform bilateral jumping in place with good technique"]
+            },
+            19: { // Phase IV - 19 weeks onward
+                phase: `PHASE IV ${DASH} RETURN-TO-FUNCTION PHASE (19 weeks onward)`,
+                goals: ["Normalize gait mechanics", "Normalize jogging mechanics", "Achieve reciprocal pattern during stair ascent and descent", "Progress to sport-specific function where applicable"],
+                interventions: [
+                    "Continue staged heel-raise loading program to completion (Stage 5: DL 10 reps, DL-up-SL-down 10 reps, SL up/down 10 repsx2-3 sets, DL up/down 10 reps; Stage 6: same as Stage 5 with forefoot on edge of step)",
+                    "Begin jogging or running when hopping is performed with good technique",
+                    "Sport-specific drills"
+                ],
+                precautions: ["Not specified - progress per individual tolerance and clinical judgement"],
+                outcomes: ["Discharge (non-athletes): ADLs without difficulty; gastrocnemius-soleus strength 4+/5", "Discharge (athletes): Hop for distance within 85% of uninvolved leg; SL balance within 85% of uninvolved leg"]
+            }
+        };
+
+        // --- HELPER FUNCTIONS ---
+        function getTAProtocolForWeek(weekNum){
+            if (weekNum <= 1) return taProtocolData[0];
+            if (weekNum >= 2 && weekNum <= 3) return taProtocolData[2];
+            if (weekNum >= 4 && weekNum <= 5) return taProtocolData[4];
+            if (weekNum >= 6 && weekNum <= 11) return taProtocolData[6];
+            if (weekNum >= 12 && weekNum <= 14) return taProtocolData[12];
+            if (weekNum >= 15 && weekNum <= 18) return taProtocolData[15];
+            if (weekNum >= 19) return taProtocolData[19];
+            return taProtocolData[0];
+        }
+
+        function formatDateDDMMYYYY_TA(dateObj){
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const year = dateObj.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        function renderListTA(elementId, items){
+            const list = document.getElementById(elementId);
+            if(!list) return;
+            list.innerHTML = '';
+            if (!items || items.length === 0){
+                list.innerHTML = '<li style="color:#999; font-style:italic;">None specified</li>';
+                return;
+            }
+            items.forEach(item =>{
+                const li = document.createElement('li');
+                li.innerText = item;
+                list.appendChild(li);
+            });
+        }
+
+        // --- CORE LOGIC ---
+        function handleTADateInput(e){
+            const input = e.target;
+            if (e.inputType === 'deleteContentBackward') return;
+
+            let value = input.value.replace(/\D/g, '');
+            if (value.length >= 2) value = value.slice(0, 2) + '/' + value.slice(2);
+            if (value.length >= 5) value = value.slice(0, 5) + '/' + value.slice(5);
+            input.value = value.slice(0, 10);
+        }
+
+        function generateTAProtocol(){
+            const dateInputStr = document.getElementById('taOpDate').value;
+            const errorMsg = document.getElementById('taDateError');
+            
+            const datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+            const match = dateInputStr.match(datePattern);
+
+            if (!match){
+                errorMsg.innerText = "Please enter a valid date in dd/mm/yyyy format.";
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            errorMsg.style.display = 'none';
+
+            const day = parseInt(match[1], 10);
+            const month = parseInt(match[2], 10) - 1;
+            const year = parseInt(match[3], 10);
+            
+            const opDate = new Date(year, month, day);
+            const today = new Date();
+            
+            if (opDate.getFullYear() !== year || opDate.getMonth() !== month || opDate.getDate() !== day){
+                errorMsg.innerText = "Invalid calendar date.";
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            opDate.setHours(0,0,0,0);
+            today.setHours(0,0,0,0);
+            
+            const diffTime = today - opDate;
+            const daysPast = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (daysPast < 0){
+                errorMsg.innerText = "Operation date cannot be in the future.";
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            const weekNum = Math.floor(daysPast / 7);
+            const startDay = weekNum * 7;
+            const endDay = startDay + 6;
+
+            const data = getTAProtocolForWeek(weekNum);
+
+            document.getElementById('taEmptyState').style.display = 'none';
+            const outputContainer = document.getElementById('taOutputContainer');
+            outputContainer.classList.add('visible');
+
+            outputContainer.style.animation = 'none';
+            outputContainer.offsetHeight;
+            outputContainer.style.animation = 'fadeInTA 0.5s ease-in-out';
+
+            document.getElementById('taWeekHeader').innerText = `Post-Operation ${weekNum} Week`;
+            document.getElementById('taDayRange').innerText = `(Day ${startDay}${ENDASH}${endDay})`;
+            document.getElementById('taPhaseLabel').innerText = data.phase || '';
+            document.getElementById('taDaysPastBadge').innerText = `${daysPast} Days Post-Op`;
+
+            renderListTA('taGoalList', data.goals);
+            renderListTA('taInterventionList', data.interventions);
+            renderListTA('taPrecautionList', data.precautions);
+            renderListTA('taOutcomeList', data.outcomes);
+
+            let textBlock = `PWH PHYSIO ACHILLES TENDON (TA) REPAIR REHABILITATION RECORD\n`;
+            textBlock += `Date: ${formatDateDDMMYYYY_TA(today)}\n`;
+            textBlock += `Operation Date: ${formatDateDDMMYYYY_TA(opDate)}\n`;
+            textBlock += `Timeline: Post-Op ${weekNum} Week (${daysPast} days)\n`;
+            if (data.phase) textBlock += `Phase: ${data.phase}\n`;
+            textBlock += `\n`;
+            
+            textBlock += `GOALS:\n- ${data.goals.join('\n- ')}\n\n`;
+            if(data.precautions && data.precautions.length > 0){
+                textBlock += `PRECAUTIONS / ROM / WEIGHT-BEARING:\n- ${data.precautions.join('\n- ')}\n\n`;
+            }
+            textBlock += `INTERVENTIONS:\n- ${data.interventions.join('\n- ')}\n\n`;
+            if(data.outcomes && data.outcomes.length > 0){
+                textBlock += `OUTCOME MEASURES / PLAN:\n- ${data.outcomes.join('\n- ')}`;
+            }
+            
+            document.getElementById('taGeneratedText').value = textBlock;
+        }
+
+        function copyTAText(){
+            const copyText = document.getElementById("taGeneratedText");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(copyText.value)
+                    .then(() => alert("Treatment record copied to clipboard!"))
+                    .catch(err => {
+                        console.warn('Navigator clipboard failed, trying fallback.', err);
+                        fallbackCopyTAText();
+                    });
+            } else {
+                fallbackCopyTAText();
+            }
+        }
+
+        function fallbackCopyTAText() {
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    alert("Treatment record copied to clipboard!");
+                } else {
+                    throw new Error("execCommand failed");
+                }
+            } catch (err) {
+                alert("Could not auto-copy. Please manually select the text and press Ctrl+C.");
+            }
+        }
+
+        // --- ATTACH LISTENERS ---
+        const taOpDateInput = document.getElementById('taOpDate');
+        const taBtnGenerate = document.getElementById('taBtnGenerate');
+        const taBtnCopy = document.getElementById('taBtnCopy');
+
+        if(taOpDateInput) {
+            taOpDateInput.addEventListener('input', handleTADateInput);
+            taOpDateInput.addEventListener('keydown', function(e){
+                if(e.key === 'Enter') generateTAProtocol();
+            });
+        }
+        if(taBtnGenerate) taBtnGenerate.addEventListener('click', generateTAProtocol);
+        if(taBtnCopy) taBtnCopy.addEventListener('click', copyTAText);
+
+    });
+</script>
+</section
